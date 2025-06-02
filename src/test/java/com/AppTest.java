@@ -13,7 +13,8 @@ public class AppTest {
         String rs = AppTestRunner.run("");
 
         assertThat(rs)
-                .contains("== 명언 앱 ==");
+                .contains("== 명언 앱 ==")
+                .contains("명령)");
     }
 
     @Test
@@ -26,7 +27,6 @@ public class AppTest {
                 """);
 
         assertThat(rs)
-                .contains("명령) ")
                 .contains("명언 : ")
                 .contains("작가 : ");
     }
@@ -42,5 +42,22 @@ public class AppTest {
 
         assertThat(rs)
                 .contains("1번 명언이 등록되었습니다.");
+    }
+
+    @Test
+    @DisplayName("등록시 마다 명언번호가 증가")
+    void t4() {
+        String rs = AppTestRunner.run("""
+                등록
+                현재를 사랑하라.
+                작자미상
+                등록
+                현재를 사랑하라.
+                작자미상
+                """);
+
+        assertThat(rs)
+                .contains("1번 명언이 등록되었습니다.")
+                .contains("2번 명언이 등록되었습니다.");
     }
 }
