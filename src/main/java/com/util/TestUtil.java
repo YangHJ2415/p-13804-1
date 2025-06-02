@@ -1,4 +1,4 @@
-package com;
+package com.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
