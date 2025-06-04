@@ -4,7 +4,10 @@ import com.AppContext;
 import com.domain.wiseSaying.entity.WiseSaying;
 import com.domain.wiseSaying.service.WiseSayingService;
 
+import java.util.Arrays;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class WiseSayingController {
     private final Scanner scanner;
@@ -38,5 +41,26 @@ public class WiseSayingController {
         for (WiseSaying wiseSaying : wiseSayingService.findForList()) {
             System.out.printf("%d / %s / %s\n", wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent());
         }
+    }
+
+    public void actionDelete(String cmd) {
+        String[] cmdBits = cmd.split("\\?", 2);
+        String queryString = cmdBits[1];
+
+        Map<String, String> params = Arrays
+                .stream(queryString.split("&"))
+                .map(e-> e.split("=", 2))
+                .filter(e-> e.length == 2 && !e[0].isEmpty() && !e[1].isEmpty())
+                .collect(Collectors.toMap(e-> e[0].trim(), e -> e[1].trim()));
+
+        String idStr = params.getOrDefault("id", "");
+        int id = Integer.parseInt(idStr);
+
+        boolean deleted = wiseSayingService.delete(id);
+        if(!deleted){
+            System.out.printf("%d번 명언은 존재하지 않습니다.\n", id);
+            return;
+        }
+        System.out.printf("%d번 명언이 삭제되었습니다.\n", id);
     }
 }
