@@ -8,13 +8,13 @@ import java.util.Scanner;
 public class App {
     private final Scanner scanner;
 
-    public App(Scanner scanner) {
-        this.scanner = scanner;
+    public App() {
+        this.scanner = AppContext.scanner;
     }
 
     public void run() {
-        WiseSayingController wiseSayingController = new WiseSayingController(scanner);
-        SystemController systemController = new SystemController();
+        WiseSayingController wiseSayingController = AppContext.wiseSayingController;
+        SystemController systemController = AppContext.systemController;
 
         System.out.println("== 명언 앱 ==");
 
