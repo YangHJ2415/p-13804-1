@@ -15,15 +15,16 @@ public class WiseSayingController {
         this.wiseSayingService = AppContext.wiseSayingService;
     }
 
-    public void actionWrite(){
+    public void actionWrite() {
         System.out.print("명언 : ");
         String content = scanner.nextLine();
 
         System.out.print("작가 : ");
         String author = scanner.nextLine();
 
-        WiseSaying wiseSaying = wiseSayingService.write(content,author);
-        System.out.printf("%번 명언이 등록되었습니다.\n", wiseSaying.getId());
+        WiseSaying wiseSaying = wiseSayingService.write(content, author);
+
+        System.out.printf("%d번 명언이 등록되었습니다.\n", wiseSaying.getId());
     }
 
     public void actionList() {

@@ -10,20 +10,22 @@ import java.util.Scanner;
 public class AppContext {
     public static Scanner scanner;
 
-    public static WiseSayingService wiseSayingService;
     public static WiseSayingRepository wiseSayingRepository;
+    public static WiseSayingService wiseSayingService;
     public static WiseSayingController wiseSayingController;
-    public static SystemController systemController;
 
-    public static void renew(){
-        renew(new Scanner(System.in));
-    }
+    public static SystemController systemController;
 
     public static void renew(Scanner _scanner) {
         scanner = _scanner;
-        systemController = new SystemController();
-        wiseSayingController = new WiseSayingController();
-        wiseSayingService = new WiseSayingService();
+
         wiseSayingRepository = new WiseSayingRepository();
+        wiseSayingService = new WiseSayingService();
+        wiseSayingController = new WiseSayingController();
+        systemController = new SystemController();
+    }
+
+    public static void renew(){
+        renew(new Scanner(System.in));
     }
 }
