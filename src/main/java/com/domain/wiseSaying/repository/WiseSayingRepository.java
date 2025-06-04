@@ -11,8 +11,11 @@ public class WiseSayingRepository {
     private final List<WiseSaying> wiseSayings = new ArrayList<>();
 
     public WiseSaying save(WiseSaying wiseSaying) {
-        wiseSaying.setId(++id);
-        wiseSayings.add(wiseSaying);
+
+        if(wiseSaying.isNew()) {
+            wiseSaying.setId(++id);
+            wiseSayings.add(wiseSaying);
+        }
         return wiseSaying;
     }
 

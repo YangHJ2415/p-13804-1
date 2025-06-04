@@ -33,6 +33,9 @@ public class App {
                 case "삭제" -> {
                     wiseSayingController.actionDelete(cmd);
                 }
+                case "수정" -> {
+                    wiseSayingController.actionModify(cmd);
+                }
                 case "종료" -> {
                     systemController.actionExit();
                     return;
