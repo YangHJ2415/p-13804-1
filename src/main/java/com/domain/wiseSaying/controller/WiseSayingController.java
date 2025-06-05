@@ -28,15 +28,18 @@ public class WiseSayingController {
         System.out.printf("%d번 명언이 등록되었습니다.\n", wiseSaying.getId());
     }
 
-    public void actionList() {
-        if (wiseSayingService.findForList().isEmpty()) {
-            System.out.println("등록된 명언이 없습니다.");
-            return;
-        }
+    public void actionList(Rq rq) {
 
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
-        for (WiseSaying wiseSaying : wiseSayingService.findForList()) {
+
+        // 파라미터에서 keywordType 가져오기 (없으면 "all" 사용)
+        String keywordType = rq.getParam("keywordType", "all");
+        // 파라미터에서 keyword 가져오기 (없으면 빈 문자열 사용)
+        String keyword = rq.getParam("keyword", "");
+
+        // 서비스에서 명언 리스트 가져오기
+        for (WiseSaying wiseSaying : wiseSayingService.findForList(keywordType, keyword)) {
             System.out.printf("%d / %s / %s\n", wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent());
         }
     }

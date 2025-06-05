@@ -21,8 +21,18 @@ public class WiseSayingService {
         return wiseSaying;
     }
 
-    public List<WiseSaying> findForList() {
-        return wiseSayingRepository.findForList();
+    public List<WiseSaying> findForList(String keywordType, String keyword) {
+        // 검색 키워드가 비어 있으면 전체 명언 리스트 반환
+        if (keyword.isBlank()) return wiseSayingRepository.findForList();
+
+        // keywordType에 따라 검색 방식 결정
+        return switch (keywordType){
+            // keywordType이 "content"면, content를 기준으로 검색
+            case "content" -> wiseSayingRepository.findForListByContentContaining(keyword);
+            // keywordType이 "author"면, author를 기준으로 검색
+            case "author" -> wiseSayingRepository.findForListByAuthorContaining(keyword);
+            default -> wiseSayingRepository.findForListByContentorAuthor(keyword, keyword);
+        };
     }
 
     public boolean delete(int id) {
